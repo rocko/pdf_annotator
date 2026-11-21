@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-keyword-annotator"
+version = "0.1.0"
+description = "Annotate PDF keywords by category and export match counts."
+requires-python = ">=3.10"
+dependencies = ["PyMuPDF>=1.24,<2"]
+
+[project.optional-dependencies]
+cloud = ["wordcloud>=1.9,<2"]
+dev = ["pytest>=8,<10", "wordcloud>=1.9,<2"]
+
+[project.scripts]
+pdf-keyword-annotator = "pdf_keyword_annotator.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

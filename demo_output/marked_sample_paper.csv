@@ -1,0 +1,12 @@
+category,term,count
+CNN,CNN,1
+datasets,CIFAR-10,1
+imbalanced data,class imbalance,1
+imbalanced data,imbalance,1
+methods,SMOTE,1
+methods,transfer learning,1
+metrics,PR,1
+metrics,accuracy,1
+metrics,precision,1
+metrics,recall,1
+nets,ResNet,1

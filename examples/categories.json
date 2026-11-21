@@ -1,0 +1,178 @@
+{
+  "categories": {
+    "imbalanced data": {
+      "style": "highlight",
+      "color": null,
+      "terms": [
+        "class imbalance",
+        "class-imbalance",
+        "data imbalance",
+        "data-imbalance",
+        "dataset imbalance",
+        "imbalance",
+        "imbalance problem",
+        "imbalanced",
+        "imbalanced class",
+        "imbalanced class distribution",
+        "imbalanced classes",
+        "imbalanced classification",
+        "imbalanced data",
+        "imbalanced dataset",
+        "unbalanced data",
+        "unbalanced data set"
+      ]
+    },
+    "metrics": {
+      "style": "highlight",
+      "color": [
+        173,
+        255,
+        47
+      ],
+      "terms": [
+        "accuracy",
+        "AUC",
+        "cost-sensitivity",
+        "ECE",
+        "F1",
+        "gmean",
+        "PR",
+        "precision",
+        "recall",
+        "ROC",
+        "ROC AUC",
+        "sensitivity",
+        "specificity",
+        "AUCPRC",
+        "F-measure"
+      ]
+    },
+    "nets": {
+      "style": "highlight",
+      "color": [
+        205,
+        105,
+        201
+      ],
+      "terms": [
+        "3D U-Net",
+        "3D UNet",
+        "AlexNet",
+        "DenseNet",
+        "EfficientNet",
+        "feature pyramid network",
+        "FPN",
+        "GoogLeNet",
+        "Inception",
+        "LeNet",
+        "LeNet-5",
+        "Mobilenet",
+        "NasNet",
+        "R-CNN",
+        "ResNet",
+        "RetinaNet",
+        "ShuffleNet",
+        "Siamese Capsule Network",
+        "Siamese Network",
+        "SqueezeNet",
+        "U-Net",
+        "UNet",
+        "V-Net",
+        "VGG",
+        "Xception",
+        "YOLO"
+      ]
+    },
+    "datasets": {
+      "style": "squiggly",
+      "color": [
+        0,
+        0,
+        255
+      ],
+      "terms": [
+        "APTOS",
+        "bg-img-rot",
+        "BRATS",
+        "Caltech-256",
+        "CelebA",
+        "ChestX-ray",
+        "CICIDS-2017",
+        "CIFAR-10",
+        "CIFAR-100",
+        "IACC.1.B",
+        "ImageNet",
+        "ISLES",
+        "Malaria dataset",
+        "Microsoft Malware Classification Challenge",
+        "MNIST",
+        "OCTOMNIST",
+        "Skin7",
+        "SpectraQuest",
+        "SVHN",
+        "TB CXR",
+        "TRECVID",
+        "UNSW_NB15",
+        "X-ray6"
+      ]
+    },
+    "CNN": {
+      "style": "highlight",
+      "color": [
+        255,
+        165,
+        0
+      ],
+      "terms": [
+        "CNN",
+        "convolution",
+        "convolutional"
+      ]
+    },
+    "methods": {
+      "style": "highlight",
+      "color": [
+        255,
+        0,
+        0
+      ],
+      "terms": [
+        "ADASYN",
+        "boosting",
+        "bootstrapping",
+        "Calibration",
+        "calibration",
+        "CE loss",
+        "cost sensitive",
+        "cost-sensitive",
+        "cross entropy",
+        "data augmentation",
+        "dynamic sampling",
+        "ensemble",
+        "focal loss",
+        "loss function",
+        "MCA",
+        "meta heuristic",
+        "meta-heuristic",
+        "MFE",
+        "MSFE",
+        "over sampling",
+        "over-sampling",
+        "population",
+        "pre training",
+        "pre-training",
+        "ROS",
+        "RUS",
+        "sampling",
+        "SMOTE",
+        "thresholding",
+        "transfer learning",
+        "under sampling",
+        "under-sampling",
+        "YMufT",
+        "augmentation",
+        "few-shot learning"
+      ]
+    }
+  }
+}
