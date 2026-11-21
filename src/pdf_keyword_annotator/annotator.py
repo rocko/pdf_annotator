@@ -29,29 +29,40 @@ class Category:
 def load_categories(path: Path) -> List[Category]:
     """Validate the JSON configuration before reading or changing any PDF."""
     data: Dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
+    
     if not isinstance(data, dict) or not isinstance(data.get("categories"), dict):
         raise ValueError("Config must contain a 'categories' object.")
 
     categories: List[Category] = []
+    
     for name, definition in data["categories"].items():
         if not isinstance(definition, dict):
             raise ValueError(f"Category '{name}' must be an object.")
+        
         style = definition.get("style", "highlight")
+        
         if style not in SUPPORTED_STYLES:
             raise ValueError(f"Unknown annotation style '{style}' in category '{name}'.")
+        
         raw_terms = definition.get("terms", [])
+        
         if not isinstance(raw_terms, list) or not all(isinstance(t, str) for t in raw_terms):
             raise ValueError(f"Category '{name}' must contain a list of term strings.")
+        
         # Deduplicate case-insensitively to avoid repeated annotations for the same word.
         terms = tuple(dict((t.strip().casefold(), t.strip()) for t in raw_terms if t.strip()).values())
+        
         raw_color = definition.get("color")
         color: Optional[RGB] = None
+        
         if raw_color is not None:
             if (not isinstance(raw_color, list) or len(raw_color) != 3 or
                     any(type(v) is not int or not 0 <= v <= 255 for v in raw_color)):
                 raise ValueError(f"Category '{name}' color must be three integers from 0 to 255.")
             color = (raw_color[0], raw_color[1], raw_color[2])
+        
         categories.append(Category(name=name, terms=terms, style=style, color=color))
+    
     return categories
 
 
@@ -88,9 +99,11 @@ def annotate_pdf(source: Path, output: Path, categories: Iterable[Category],
     with fitz.open(source) as document:
         if not document.is_pdf:
             raise ValueError(f"Not a PDF: {source}")
+        
         # Reject encryption without silently generating incomplete output.
         if document.needs_pass:
             raise ValueError(f"Password-protected PDF: {source}")
+        
         for page in document:
             for category in categories:
                 seen: set = set()
@@ -99,17 +112,21 @@ def annotate_pdf(source: Path, output: Path, categories: Iterable[Category],
                     # PDF-aware search so line wraps can still be matched.
                     quads = page.search_for(term, quads=True)
                     fresh = []
+                    
                     for quad in quads:
                         key = tuple(round(v, 3) for p in quad for v in (p.x, p.y))
                         if key in seen:
                             continue
                         seen.add(key)
                         fresh.append(quad)
+                    
                     if fresh:
                         _create_annotation(page, fresh, category)
                         counts[(category.name, term)] += len(fresh)
+        
         # Save a new file rather than applying incremental changes to the original.
         document.save(output, garbage=4, deflate=True)
+    
     return counts
 
 
@@ -119,8 +136,10 @@ def find_pdf_files(source: Path, recursive: bool = False) -> List[Path]:
         if source.suffix.lower() != ".pdf":
             raise ValueError(f"Expected a PDF input: {source}")
         return [source]
+    
     if not source.is_dir():
         raise FileNotFoundError(f"Input path does not exist: {source}")
+    
     iterator = source.rglob("*") if recursive else source.iterdir()
-    return sorted(p for p in iterator if p.is_file() and p.suffix.lower() == ".pdf"
-                  and not p.name.lower().startswith("marked_"))
+    
+    return sorted(p for p in iterator if p.is_file() and p.suffix.lower() == ".pdf" and not p.name.lower().startswith("marked_"))

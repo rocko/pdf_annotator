@@ -14,6 +14,7 @@ def _write_counts(destination: Path, counts: Counter) -> None:
     with destination.open("w", encoding="utf-8", newline="") as stream:
         writer = csv.writer(stream)
         writer.writerow(["category", "term", "count"])
+        
         for (category, term), count in sorted(counts.items()):
             writer.writerow([category, term, count])
 
@@ -24,12 +25,14 @@ def _make_wordcloud(destination: Path, counts: Counter) -> None:
         from wordcloud import WordCloud
     except ImportError as exc:
         raise RuntimeError("Install the optional dependency: uv pip install -e '.[cloud]'") from exc
+    
     totals: Counter = Counter()
+    
     for (_, term), count in counts.items():
         totals[term] += count
+    
     if totals:
-        WordCloud(width=1000, height=600, background_color="white").generate_from_frequencies(
-            dict(totals)).to_file(str(destination))
+        WordCloud(width=1000, height=600, background_color="white").generate_from_frequencies(dict(totals)).to_file(str(destination))
 
 
 def main(argv: Optional[List[str]] = None) -> int:
@@ -47,19 +50,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     try:
         categories = load_categories(args.config)
         inputs = find_pdf_files(args.input, recursive=args.recursive)
+        
         if not inputs:
             parser.error("No PDF files found.")
+        
         for source in inputs:
             # Preserve the directory structure for a recursive directory input.
             relative = source.relative_to(args.input) if args.input.is_dir() else Path(source.name)
             destination = args.output / relative.parent / f"marked_{relative.name}"
             counts = annotate_pdf(source, destination, categories, overwrite=args.overwrite)
             _write_counts(destination.with_suffix(".csv"), counts)
+            
             if args.wordcloud:
                 _make_wordcloud(destination.with_suffix(".png"), counts)
             print(f"{source} -> {destination} ({sum(counts.values())} keyword matches)")
+    
     except (OSError, ValueError, RuntimeError) as exc:
         parser.exit(1, f"Error: {exc}\n")
+    
     return 0
 
 
