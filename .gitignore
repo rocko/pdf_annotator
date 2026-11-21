@@ -1,1 +1,3 @@
 *.zip
+/src/pdf_keyword_annotator.egg-info
+/src/pdf_keyword_annotator/__pycache__

@@ -1,0 +1,15 @@
+category,term,count
+CNN,CNN,2
+CNN,convolution,8
+CNN,convolutional,7
+datasets,ImageNet,7
+methods,CE loss,2
+methods,augmentation,1
+methods,data augmentation,1
+methods,loss function,3
+methods,pre-training,1
+methods,sampling,4
+methods,transfer learning,4
+metrics,accuracy,10
+nets,AlexNet,2
+nets,ResNet,4
